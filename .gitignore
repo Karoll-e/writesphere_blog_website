@@ -1,0 +1,62 @@
+# Byte-compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local development settings
+*.sqlite3
+*.env
+env_vars.py
+
+# Media and static files
+/media/
+/static/
+
+# Compiled translations
+*.mo
+pipreqs .
+# Environment-specific files
+*.env
+
+# IDE-specific files and directories
+.vscode/
+.idea/
+*.pydevproject
+*.pycproject
+
+# Dependency directories
+venv/
+env/
+.pipenv/
+pipenv.lock
+
+# Log files
+*.log
+
+# Compiled Python bytecode
+__pycache__/
+*.py[cod]
+
+# Temporary files
+*.bak
+*.swp
+*~
+
+# Compiled output
+dist/
+build/
+*.egg-info/
+
+# Database files
+*.db
+
+# macOS-specific files
+.DS_Store
+
+# Compiled JavaScript
+*.map
+*.js.map
+
+# Node.js directories
+node_modules/

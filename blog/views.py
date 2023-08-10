@@ -4,10 +4,10 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post, Category
+from .models import Post
 from users.models import Profile
-from django.forms import ModelChoiceField
-from django import forms
+from .forms import PostForm
+
 
 def home(request):
     context = {
@@ -49,28 +49,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = "/login/"
     redirect_field_name = "login"
     model = Post
-    fields = ['title', 'content', 'category']
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class=form_class)
 
-        category_field = form.fields.get('category')
-
-        category_choices = Category.objects.all()
-
-        form.fields['category'] = ModelChoiceField(
-            queryset=category_choices,
-            widget= forms.Select(attrs={'class': 'form-control'})  
-        )
-        return form
     
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    form_class = PostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user

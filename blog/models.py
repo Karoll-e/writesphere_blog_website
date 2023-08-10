@@ -7,6 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=70)
 
     class Meta:
+        verbose_name = "Category"
         verbose_name_plural = "Categories"
 
     def __str__(self):
@@ -18,7 +19,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.title
     

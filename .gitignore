@@ -8,6 +8,7 @@ __pycache__/
 *.sqlite3
 *.env
 env_vars.py
+secret_key.py 
 
 # Media and static files
 /media/

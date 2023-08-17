@@ -8,7 +8,6 @@ from .models import Post
 from users.models import Profile
 from .forms import PostForm
 
-
 def home(request):
     context = {
         'posts' : Post.objects.all()
@@ -47,7 +46,7 @@ class PostDetailView(DetailView):
     
 class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = "/login/"
-    redirect_field_name = "login"
+    redirect_field_name = "next"
     model = Post
     form_class = PostForm
 
@@ -69,6 +68,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False
+    
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post

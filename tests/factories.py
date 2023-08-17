@@ -10,7 +10,8 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
 
     username = fake.user_name()
-    email = fake.email()
+    email = fake.ascii_free_email()
+    password = fake.password(length=12, special_chars=True, digits=True, upper_case=True, lower_case=True)
 
 class CategoryFactory(factory.django.DjangoModelFactory):
     class Meta:

@@ -1,57 +1,101 @@
-
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-    <div class="mb-4">
-        <div class="media">
-        <img class="rounded-circle account-img" src="{{ profile.image.url }}" width="30" height="30">
-        <div class="media-body">
-            <h2 class="account-heading">{{ view.kwargs.username }}</h2>
-            <p class="text-info">{{ profile.job_label }}</p>
-            <p class="text-dark">{{ profile.description }}</p>
-        </div>
-        </div>
-    </div>
-    <div class="text-right">
-      <h6>
-        <small class="text-muted">Total Posts ({{ page_obj.paginator.count }})</small>
-      </h6>
-    </div>
-    {% for post in posts %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-              <small class="text-muted">{{ post.date_posted|date:'F d, Y' }}</small>
+
+<body>
+  <section class="hero" id="hero">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card card-custom">
+
+            <!-- ... Profile content ... -->
+
+            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+              <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                <img src="{{  profile.image.url }}" alt="Generic placeholder image"
+                  class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+                {% if user.is_authenticated and user.username == view.kwargs.username %}
+                  <!-- Botón para editar el perfil si es el propio usuario -->
+                  <a href="" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                      Edit Profile
+                  </a>
+                {% else %}
+                  <!-- Botón de seguimiento para otros usuarios o usuarios no autenticados -->
+                  <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                      Follow
+                  </button>
+                {% endif %}             
+              </div>
+              <div class="ms-3" style="margin-top: 130px;">
+                <h5>{{ view.kwargs.username }}</h5>
+                <p>Joined on {{profile.user.date_joined|date:'M d, Y' }}</p>
+              </div>
             </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content|truncatechars:300 }}</p>
+            <div class="p-4 text-black" style="background-color: #f8f9fa;">
+              <div class="d-flex justify-content-end text-center py-1">
+                <div>
+                  <p class="mb-1 h5">{{ page_obj.paginator.count }}</p>
+                  <p class="small text-muted mb-0">Posts</p>
+                </div>
+                <div class="px-3">
+                  <p class="mb-1 h5">1026</p>
+                  <p class="small text-muted mb-0">Followers</p>
+                </div>
+                <div>
+                  <p class="mb-1 h5">478</p>
+                  <p class="small text-muted mb-0">Following</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ... About content ... -->
+
+            <div class="card-body p-4 text-black">
+              <div class="mb-5">
+                <p class="lead fw-normal mb-1">About</p>
+                <div class="p-4" style="background-color: #f8f9fa;">
+                  <p class="font-italic mb-1">{{ profile.description }}</p>
+                </div>
+              </div>
+
+              <!-- ... Posts content ... -->
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="lead fw-normal mb-0">Recent posts</p>
+                <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+              </div>
+              {% for post in posts %}
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="card mb-5" style="border-radius: 15px;">
+                  <div class="card-body p-4">
+                    <h3 class="mb-3"><a class="post-title-link" href="{% url 'post-detail' post.id %}"
+                        style="text-decoration: none; color: inherit;">{{ post.title }}</a></h3>
+                    <p class="small mb-0"><i class="far fa-star fa-lg"></i>
+                      <strong>{{ post.category }}</strong> • {{ post.date_posted|date:'F d, Y' }}
+                    </p>
+                    <p class="card-text my-4">{{ post.content|truncatechars:100 }}</p>
+                    <div class="d-flex justify-content-start align-items-center">
+                      <p class="mb-0 "><i class="fas fa-cog me-2 bi bi-heart"></i> <span class="text-muted small">20
+                          likes</span></p>
+                      <p class="mb-0 "><i class="fas fa-link ms-4 me-2 bi bi-chat"></i> <span
+                          class="text-muted small">40 comments</span></p>
+                      <p class="mb-0 text-end"><i class="fas fa-ellipsis-h ms-4 me-2"></i> <span
+                          class="text-muted small text-end">{{ post.reading_time }} min</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
-        </article>
-    {% endfor %}
-    <div class="d-flex justify-content-center">
-      {% if is_paginated %}
-
-        {% if page_obj.has_previous %}
-          <a class="btn btn-outline-info mb-4" href="?page=1">&laquo;</a>
-          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-          {% if page_obj.number == num %}
-            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-          {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-          {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
-          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
-        {% endif %}
-
-      {% endif %}
+        </div>
+      </div>
     </div>
-
-
+  </section>
+</body>
 {% endblock content %}
+{% block javascript %}
+{% endblock %}

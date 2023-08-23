@@ -27,5 +27,15 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+    
+    def reading_time(self):
+        words_per_minute = 200  
+        words = self.content.split()
+        total_words = len(words)
+        reading_time = total_words // words_per_minute
+        if reading_time == 0:
+            return 1
+        return round(reading_time)
+
 
 

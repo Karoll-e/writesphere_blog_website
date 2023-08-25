@@ -18,7 +18,7 @@
                   class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
                 {% if user.is_authenticated and user.username == view.kwargs.username %}
                   <!-- Botón para editar el perfil si es el propio usuario -->
-                  <a href="{% url 'profile' %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                  <a href="{% url 'settings' %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
                       Edit Profile
                   </a>
                 {% else %}

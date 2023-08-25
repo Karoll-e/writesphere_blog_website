@@ -8,17 +8,17 @@
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col col-lg-9 col-xl-7">
-          <div class="card card-custom">
+          <div class="card card-custom shadow-sm">
 
             <!-- ... Profile content ... -->
 
-            <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+            <div class="rounded-top text-white d-flex flex-row" style="position: relative;background-color: #000; height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                 <img src="{{  profile.image.url }}" alt="Generic placeholder image"
                   class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
                 {% if user.is_authenticated and user.username == view.kwargs.username %}
                   <!-- Botón para editar el perfil si es el propio usuario -->
-                  <a href="" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                  <a href="{% url 'profile' %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
                       Edit Profile
                   </a>
                 {% else %}
@@ -56,7 +56,7 @@
               <div class="mb-5">
                 <p class="lead fw-normal mb-1">About</p>
                 <div class="p-4" style="background-color: #f8f9fa;">
-                  <p class="font-italic mb-1">{{ profile.description }}</p>
+                  <p class="font-italic mb-1">{{ profile.bio }}</p>
                 </div>
               </div>
 
@@ -97,5 +97,3 @@
   </section>
 </body>
 {% endblock content %}
-{% block javascript %}
-{% endblock %}

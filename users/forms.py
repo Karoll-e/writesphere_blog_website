@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
+from django.forms.widgets import ClearableFileInput
+
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -23,6 +25,7 @@ class UserRegisterForm(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Your password must contain at least 8 characters'
         self.fields['password2'].widget.attrs['placeholder'] = 'Enter the same password as before, for verification'
 
+
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
@@ -30,7 +33,20 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'email']
 
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].help_text = None
+        self.fields['email'].help_text = None
+
+
 class ProfileUpdateForm(forms.ModelForm):
+    image = forms.ImageField(label=False)
+
     class Meta:
         model = Profile
-        fields = ['job_label','description','image']
+        fields = ['bio','image']
+    
+   
+
+        

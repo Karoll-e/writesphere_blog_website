@@ -1,24 +1,51 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" width="30" height="30">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
+  <body>
+    <section class="hero" id="hero">
+      <div class="container py-5 h-100">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="mb-4">
+              <h2>Setting for <a href="{% url 'user-posts' user.username %}" style="text-decoration: none;">@{{ user.username }}</a></h2>
+            </div>
+            <div class="card card-custom shadow-sm">
+              <div class="card-body">
+                <h3 class="card-title mb-4"><strong>User</strong></h3>
+                <div class="form-group">
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <div><strong>{{ u_form.username|as_crispy_field }}</strong></div>
+                    </div>
+                    <div class="form-group">
+                      <div><strong>{{ u_form.email|as_crispy_field }}</strong></div>
+                    </div>
+                    <div class="form-group">
+                      <div><strong>{{ p_form.bio|as_crispy_field }}</strong></div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label"><strong>Profile image</strong></label>
+                      <div class="d-flex align-items-center">
+                        <div class="avatar avatar-sm mr-2 rounded-circle overflow-hidden">
+                          <div class="avatar-circle" style="background-image: url('{{ request.user.profile.image.url }}');">
+                          </div>
+                        </div>
+                        <div class="mx-3">
+                          {{ p_form.image|as_crispy_field }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ml-auto mt-4">
+                      <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
-        </div>
-    </form>
-    </div>
+    </section>
+  </body>
 {% endblock content %}

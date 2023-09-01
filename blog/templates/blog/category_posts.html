@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <h2>{{ category.name }} Posts</h2>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% empty %}
+            <li>No posts found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

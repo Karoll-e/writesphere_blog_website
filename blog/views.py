@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from .models import Post, Category
 from users.models import Profile
 from .forms import PostForm
 
@@ -82,3 +82,15 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
+
+
+class CategoryPostListView(ListView):
+    model = Post
+    template_name = 'blog/category_posts.html'  # Create this template
+    context_object_name = 'posts'
+    paginate_by = 10  # Adjust the number of posts per page
+
+    def get_queryset(self):
+        category_name = self.kwargs['category_name']
+        category = get_object_or_404(Category, name=category_name)
+        return Post.objects.filter(category=category).order_by('-date_posted')

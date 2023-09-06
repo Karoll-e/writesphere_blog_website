@@ -31,19 +31,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Tech</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'category_posts' category_name='tech' %}">Tech</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Entertainment</a>
+                        <a class="nav-link" href="{% url 'category_posts' category_name='entertainment' %}">Entertainment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Travel</a>
+                        <a class="nav-link" href="{% url 'category_posts' category_name='travel' %}">Travel</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sports</a>
+                        <a class="nav-link" href="{% url 'category_posts' category_name='sports' %}">Sports</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Politics</a>
+                        <a class="nav-link" href="{% url 'category_posts' category_name='health' %}">Health</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-lg-none" href="{% url 'login' %}">Log in</a>

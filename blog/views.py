@@ -9,8 +9,10 @@ from users.models import Profile
 from .forms import PostForm
 
 def home(request):
+    latest_post = Post.objects.last()
     context = {
-        'posts' : Post.objects.all()
+        'posts' : Post.objects.all(),
+        'latest_post': latest_post
     }
     return render(request, 'blog/home.html', context)
 
@@ -88,7 +90,7 @@ class CategoryPostListView(ListView):
     model = Post
     template_name = 'blog/category_posts.html'  # Create this template
     context_object_name = 'posts'
-    paginate_by = 10  # Adjust the number of posts per page
+    paginate_by = 5  # Adjust the number of posts per page
 
     def get_queryset(self):
         category_name = self.kwargs['category_name']

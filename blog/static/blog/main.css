@@ -19,7 +19,7 @@
   font-size: 1.1rem;
 }
 
-.navbar-nav .nav-item .nav-link:hover {
+.navbar-nav .post-title .nav-item .nav-link:hover {
   color: #7b9de5; 
 }
 
@@ -38,6 +38,7 @@ section.hero {
 section [class^="container"] {
   padding: 4rem 2rem;
 }
+
 
 @media screen and (min-width: 1024px) {
   section [class^="container"] {
@@ -103,4 +104,8 @@ section.hero {
 
 .asteriskField {
   display: none;
+}
+
+.post-content{
+  font-weight: 400;
 }

@@ -21,6 +21,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    header_image = models.ImageField(null=True, blank=True, upload_to="post_pics")
 
     def __str__(self):
         return self.title

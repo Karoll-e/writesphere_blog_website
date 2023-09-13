@@ -1,16 +1,45 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Blog Post</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button>
+
+<body>
+    <section class="hero" id="hero">
+        <div class="container py-3 h-100">
+            <div class="row justify-content-center">
+                <div class="col col-lg-9 col-xl-12">
+                    <div class="mb-4">
+                        <h3 class="card-title mb-4"><strong>Create post</strong></h3>
+                    </div>
+                    <div class="card card-custom shadow-sm">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <form method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                            <div><strong>
+                                                {{ form.header_image|as_crispy_field }}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div><strong>{{ form.title|as_crispy_field }}</strong></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div><strong>{{ form.content|as_crispy_field }}</strong></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div><strong>{{ form.category|as_crispy_field }}</strong></div>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">Publish</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </section>
+</body>
 {% endblock content %}

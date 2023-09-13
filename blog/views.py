@@ -42,8 +42,19 @@ class UserPostListView(ListView):
         return context
 
 
-class PostDetailView(DetailView):
-    model = Post
+def post_detail_view(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    author = post.author
+    author_posts = Post.objects.filter(author=author).order_by('-date_posted')[:4]
+    num_posts = author_posts.count()
+
+    context = {
+        'post': post,
+        'author_posts': author_posts, 
+        'num_posts': num_posts
+    }
+    return render(request, 'blog/post_detail.html.', context) 
+
     
     
 class PostCreateView(LoginRequiredMixin, CreateView):

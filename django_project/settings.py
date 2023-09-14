@@ -21,17 +21,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "blog.apps.BlogConfig",
-    "users.apps.UsersConfig",
-    "django_cleanup",
-    "crispy_forms",
-    "crispy_bootstrap5",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Local
+    "blog.apps.BlogConfig",
+    "users.apps.UsersConfig",
+    # 3rd party
+    "django_cleanup",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -111,9 +114,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL ="/media/"
 MEDIA_ROOT= os.path.join(BASE_DIR, "media")
+
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -132,3 +137,19 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CKEDITOR_CONFIGS = {
+    'default':
+        {
+            'toolbar_Full': [
+                ['Undo','Redo','Styles','Format', 'Bold', 'Italic', 'Underline', 'Strike', 'Preview', ],
+                ['Link', 'Unlink'],
+                ['Blockquote','Image','Table', 'HorizontalRule'],
+                ['SpecialChar'],
+                ['NumberedList','BulletedList'],
+                ['Indent','Outdent'],
+            ],
+            'width': '127%',
+            'extraPlugins': ','.join(['codesnippet']),
+        },
+}

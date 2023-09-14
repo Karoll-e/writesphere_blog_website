@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 import shortuuid
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     name = models.CharField(max_length=70)
@@ -17,7 +18,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    content = models.TextField()
+    content = RichTextField(null=True, blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

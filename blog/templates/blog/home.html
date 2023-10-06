@@ -6,27 +6,17 @@
       <div class="card card-custom mb-3 shadow-sm">
         <div class="row g-0">
           <div class="col-md-4">
-            <!-- Aquí iría el thumbnail de la noticia -->
-            <img src="{% static 'blog\images\imagen2.avif' %}" alt="Thumbnail de la noticia" class="img-fluid rounded">
+            {% if latest_post.cropped_image_420x420 %}
+              <img src="{{ latest_post.cropped_image_420x420.url }}" alt="Thumbnail de la noticia" class="img-fluid rounded" style= "max-height: 580px;">
+            {% endif %}
           </div>
           <div class="col-md-8">
             <div class="card-body mx-4">
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Autor</a> • Fecha de
-                publicación</p>
-              <h2 class="display-5 fw-bold">Título de la noticia</h5>
-                <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry. Lorem Ipsum has been the industry's standard dummy text ever since the
-                  1500s,
-                  when an unknown printer took a galley of type and scrambled it to make a type
-                  specimen
-                  book. It has survived not only five centuries, but also the leap into electronic
-                  typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                  the
-                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                  desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </p>
-                <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Categoría</a> • Tiempo
-                  de lectura</p>
+              <p class="card-text text-muted"><a href="{% url 'profile' latest_post.author %}" class="tiny text-decoration-none small">{{ latest_post.author }}</a> • {{ latest_post.date_posted|date:'F d, Y' }}</p>
+              <h2 class="display-5 fw-bold"><a href="{% url 'post-detail' latest_post.id %}"style="text-decoration: none; color: inherit;">{{ latest_post.title|truncatechars:80 }}</a></h5>
+                <p class="card-text"><a href="{% url 'post-detail' latest_post.id %}"
+                  style="text-decoration: none; color: inherit;">{{ latest_post.get_cleaned_content|safe|truncatechars:300 }}</a></p>
+                <p class="card-text text-muted"><a href="{% url 'category_posts' latest_post.category.name %}" class="tiny text-decoration-none small">{{ latest_post.category }}</a> • {{ latest_post.reading_time }} min read</p>
             </div>
           </div>
         </div>
@@ -39,61 +29,26 @@
     </div>
     <div class="container" id="card">
       <div class="row">
+        {% for post in posts|slice:"0:4" %}
         <div class="col-md-3 mt-4">
           <div class="card card-custom">
-            <img src="{% static 'blog\images\imagen2.avif' %}" class="card-img-top" alt="Thumbnail de la noticia">
+            {% if post.cropped_image_420x420 %}
+              <img src="{{ post.cropped_image_420x420.url }}" class="card-img-top custom-image" alt="Thumbnail de la noticia">
+            {% endif %}
             <div class="card-body">
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Autor</a> • Tiempo de
-                publicación</p>
-              <h5 class="card-title">Título de la noticia</h5>
-              <p class="card-text">Primeras 200 caracteres del post...</p>
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Categoría</a> • Tiempo
-                de lectura</p>
+              <p class="card-text text-muted"><a href="{% url 'profile' post.author %}" class="tiny text-decoration-none small">{{ post.author }}</a> • {{ post.date_posted|date:'F d, Y' }}</p>
+              <h5 class="card-title"><a href="{% url 'post-detail' post.id %}"
+                style="text-decoration: none; color: inherit;">{{ post.title|truncatechars:55 }}</a></h5>
+              <p class="card-text"><a href="{% url 'post-detail' post.id %}"
+                style="text-decoration: none; color: inherit;">{{ post.get_cleaned_content|safe|truncatechars:100 }}</a></p>
+              <p class="card-text text-muted"><a href="{% url 'category_posts' post.category.name %}" class="tiny text-decoration-none small">{{ post.category }}</a> • {{ post.reading_time }} min read</p>
             </div>
           </div>
         </div>
-        <div class="col-md-3 mt-4">
-          <div class="card card-custom">
-            <img src="imagen3.jpg" class="card-img-top" alt="Thumbnail de la noticia">
-            <div class="card-body">
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Autor</a> • Tiempo de
-                publicación</p>
-              <h5 class="card-title">Título de la noticia</h5>
-              <p class="card-text">Primeras 200 caracteres del post...</p>
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Categoría</a> • Tiempo
-                de lectura</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mt-4">
-          <div class="card card-custom">
-            <img src="imagen.jpg" class="card-img-top" alt="Thumbnail de la noticia">
-            <div class="card-body">
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Autor</a> • Tiempo de
-                publicación</p>
-              <h5 class="card-title">Título de la noticia</h5>
-              <p class="card-text">Primeras 200 caracteres del post...</p>
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Categoría</a> • Tiempo
-                de lectura</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mt-4">
-          <div class="card card-custom">
-            <img src="ruta-de-la-imagen-thumbnail.jpg" class="card-img-top" alt="Thumbnail de la noticia">
-            <div class="card-body">
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Autor</a> • Tiempo de
-                publicación</p>
-              <h5 class="card-title">Título de la noticia</h5>
-              <p class="card-text">Primeras 200 caracteres del post...</p>
-              <p class="card-text text-muted"><a href="#" class="tiny text-decoration-none small">Categoría</a> • Tiempo
-                de lectura</p>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
-  </section>
+  </section>  
   <section class="hero" id="hero">
     <div class="container">
       <div class="card card-custom mb-3">

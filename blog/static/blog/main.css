@@ -112,3 +112,12 @@ section.hero {
 .post-content{
   font-weight: 400;
 }
+
+.custom-image {
+  max-width: 580px;
+  max-height: 580px;
+  width: auto;
+  height: auto;
+}
+
+

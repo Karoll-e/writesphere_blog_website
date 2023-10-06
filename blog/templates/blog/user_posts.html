@@ -12,21 +12,23 @@
 
             <!-- ... Profile content ... -->
 
-            <div class="rounded-top text-white d-flex flex-row" style="position: relative;background-color: #000; height:200px;">
+            <div class="rounded-top text-white d-flex flex-row"
+              style="position: relative;background-color: #000; height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                 <img src="{{  profile.image.url }}" alt="Generic placeholder image"
                   class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
                 {% if user.is_authenticated and user.username == view.kwargs.username %}
-                  <!-- Botón para editar el perfil si es el propio usuario -->
-                  <a href="{% url 'settings' %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
-                      Edit Profile
-                  </a>
+                <!-- Botón para editar el perfil si es el propio usuario -->
+                <a href="{% url 'settings' %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                  style="z-index: 1;">
+                  Edit Profile
+                </a>
                 {% else %}
-                  <!-- Botón de seguimiento para otros usuarios o usuarios no autenticados -->
-                  <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
-                      Follow
-                  </button>
-                {% endif %}             
+                <!-- Botón de seguimiento para otros usuarios o usuarios no autenticados -->
+                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                  Follow
+                </button>
+                {% endif %}
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{ view.kwargs.username }}</h5>
@@ -75,7 +77,7 @@
                     <p class="small mb-0"><i class="far fa-star fa-lg"></i>
                       <strong>{{ post.category }}</strong> • {{ post.date_posted|date:'F d, Y' }}
                     </p>
-                    <p class="card-text my-4">{{ post.content|striptags|truncatechars:100 }}
+                    <p class="card-text my-4">{{ post.get_cleaned_content|safe|truncatechars:100 }}
                     </p>
                     <div class="d-flex justify-content-start align-items-center">
                       <p class="mb-0 "><i class="fas fa-cog me-2 bi bi-heart"></i> <span class="text-muted small">20

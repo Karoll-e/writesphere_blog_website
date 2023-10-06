@@ -6,7 +6,7 @@ from PIL import Image, ImageOps
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="default.png", upload_to="profile_pics")
+    image = models.ImageField(default="default.jpg", upload_to="profile_pics")
     bio = models.TextField(default="404 bio not found")
 
     def __str__(self):

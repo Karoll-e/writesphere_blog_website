@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.dispatch import receiver
 from .models import Profile
 
+
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     try:
@@ -11,9 +12,7 @@ def create_profile(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
     instance.profile.save()
-
-
-

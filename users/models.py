@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from PIL import Image, ImageOps
-#import cv2 
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -11,9 +11,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} Profile"
-    
+
     def save(self, *args, **kwargs):
-        super().save(*args,**kwargs)
+        super().save(*args, **kwargs)
         try:
             img = Image.open(self.image.path)
             if img.height > 300 or img.width > 300:
@@ -22,7 +22,3 @@ class Profile(models.Model):
                 resized.save(self.image.path)
         except (FileNotFoundError, ValidationError, OSError):
             pass
-
-
-
-

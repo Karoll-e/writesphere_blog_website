@@ -28,7 +28,9 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    header_image = models.ImageField(null=True, blank=True, upload_to="post_pics")
+    header_image = models.ImageField(
+        default="default_header_image.png", null=True, blank=True, upload_to="post_pics"
+    )
     cropped_image_1000x420 = ImageSpecField(
         source="header_image",
         processors=[ResizeToFill(1000, 420)],
@@ -47,7 +49,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"pk": self.pk})
-    
+
     def get_cleaned_content(self):
         cleaned_content = striptags(self.content)
         return cleaned_content
@@ -60,4 +62,3 @@ class Post(models.Model):
         if reading_time == 0:
             return 1
         return round(reading_time)
-

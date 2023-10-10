@@ -34,11 +34,8 @@
                             {{ post.date_posted|date:"F d" }}
                             {% endif %}
                             </p>
-                            <p class="card-text my-4"><a href="{% url 'post-detail' post.id %}"
-                                    style="text-decoration: none; color: inherit;"><a
-                                        href="{% url 'post-detail' post.id %}"
-                                        style="text-decoration: none; color: inherit;">{{
-                                        post.get_cleaned_content|safe|truncatechars:100 }}</a></p>
+                            <p class="card-text my-4"><a href="{% url 'post-detail' post.id %}"style="text-decoration: none; color: inherit;"><a href="{% url 'post-detail' post.id %}"style="text-decoration: none; color: inherit;">{{post.get_cleaned_content|safe|truncatechars:100 }}</a>
+                            </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <a href="#" style="text-decoration: none; color: inherit;"

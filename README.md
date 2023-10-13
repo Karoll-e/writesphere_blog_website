@@ -8,7 +8,7 @@
 <h2>Project Screenshots:</h2>
 
 
-<img src="https://gifs.com/gif/nyan-cat-at-4k-resolution-Kr128X" alt="project-screenshot" width="1080" height="1080/">
+<img src="https://gifs.com/gif/nyan-cat-at-4k-resolution-Kr128X" alt="project-screenshot" width="1080" height="1080/"> 
 
   
 <h2>🧐 Features</h2>
@@ -18,8 +18,16 @@ Here are some of the project's best features:
 
 *   <strong>User Authentication:</strong> The website includes secure user authentication with features like user registration login and password reset. Users can create accounts and log in to start blogging.
 *   <strong>Profile Management:</strong> Registered users have their own profiles where they can add a profile picture update personal information and view their published posts.
+  ![Captura de pantalla 2023-10-13 151422](https://github.com/Karoll-e/writesphere_blog_website/assets/141882497/81c97ed4-9e89-4424-bfcb-876f4b43f42d)
+
 *   <strong>Post Creation and Categorization:</strong> Users can create new blog posts categorize them for easy navigation and format their content using a rich text editor.
+  ![Captura de pantalla 2023-10-13 151304](https://github.com/Karoll-e/writesphere_blog_website/assets/141882497/6c5c346f-9635-4340-8f22-546d637a1270)
+  ![Captura de pantalla 2023-10-13 151442](https://github.com/Karoll-e/writesphere_blog_website/assets/141882497/13b17d79-37b5-46ce-9612-ce10a59566da)
+
+
 *   <strong>Post and Profile Editing:</strong> Users can edit and delete their own posts as well as update their profile information including the profile picture.
+  ![Captura de pantalla 2023-10-13 151900](https://github.com/Karoll-e/writesphere_blog_website/assets/141882497/93bdbd78-a986-4e3b-b687-7bc930ce20e3)
+
 *   <strong>Pagination:</strong> The website implements pagination to handle many blog posts efficiently ensuring a smooth user experience.
 *   <strong>Database Schema:</strong> The project incorporates a well-structured database schema to efficiently manage user profiles blog posts and categories.
 *   <strong>Bootstrap Integration:</strong> Bootstrap framework is integrated into the project to enhance styling and maintain layout consistency throughout the website.

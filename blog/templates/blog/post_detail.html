@@ -117,7 +117,7 @@
                           style="text-decoration: none; color: inherit;">{{ post.title|truncatechars:80 }}</a></h6>
                       <p class="text-muted"><a href="{% url 'post-detail' post.id %}"
                           style="text-decoration: none; color: inherit;">
-                          {{post.get_cleaned_content|safe|truncatechars:50}}</a>
+                          {{post.get_cleaned_content|safe|truncatechars:40}}</a>
                       </p>
                       <p class="text-muted"><small>{{ post.reading_time }} min · {{ post.date_posted|date:"F d" }}
                         </small></p>

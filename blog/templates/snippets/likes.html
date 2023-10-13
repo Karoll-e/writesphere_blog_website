@@ -1,0 +1,33 @@
+<!-- {% load static %}
+<div class="flex items-center gap-4 [&>a:hover]:underline">
+    <div class="flex items-center gap-1">
+        {% if user in post.likes.all %}
+        <i class="bi bi-heart-fill"></i>
+        {% else %}
+        <i class="bi bi-heart"></i>
+        {% endif %}
+        {{ post.likes.count }}
+    </div>
+    {% if user.is_authenticated %}
+    <a class="cursor-pointer" hx-get="{% url 'like-post' post.id %}" hx-target="closest div" hx-swap="outerHTML">
+        {% if user in post.likes.all %}
+        <b>Liked</b>
+        {% else %}
+        Like
+        {% endif %}
+    </a>
+    {% endif %}
+</div> -->
+
+{% load static %}
+<div class="flex items-center gap-4">
+    <div class="flex items-center gap-1" >
+        {% if user in post.likes.all %}
+        <a href="#" style="color: rgb(255, 0, 0);" class="bi bi-heart-fill" hx-get="{% url 'like-post' post.id %}" hx-target="closest div" hx-swap="outerHTML"></a>
+        <b>{{ post.likes.count }}</b>
+        {% else %}
+        <a href="#" style="text-decoration: none; color: inherit;" class="bi bi-heart" hx-get="{% url 'like-post' post.id %}" hx-target="closest div" hx-swap="outerHTML"></a>
+        {{ post.likes.count }}
+        {% endif %}
+    </div>
+</div>

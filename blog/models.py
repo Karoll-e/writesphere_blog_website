@@ -28,6 +28,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name="likedposts", through="LikedPost")
     header_image = models.ImageField(
         default="default_header_image.png", null=True, blank=True, upload_to="post_pics"
     )
@@ -62,3 +63,11 @@ class Post(models.Model):
         if reading_time == 0:
             return 1
         return round(reading_time)
+    
+class LikedPost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} : {self.post.title}"

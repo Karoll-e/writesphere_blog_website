@@ -1,6 +1,8 @@
 from typing import Any, Optional
 from django.db.models.query import QuerySet
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
@@ -15,15 +17,20 @@ from users.models import Profile
 from .forms import PostForm
 from django.shortcuts import render
 from .models import Post
+from django.http import JsonResponse
+from django.db.models import Count
 
 def home(request):
 
-    posts = Post.objects.all().order_by("-date_posted")[:4]
+    posts = Post.objects.all().order_by("-date_posted")[1:5]
     latest_post = Post.objects.last()
-
+    liked_posts = Post.objects.annotate(num_likes=Count('likes')).order_by('-num_likes')[1:5]
+    most_popular_post = Post.objects.annotate(num_likes=Count('likes')).order_by('-num_likes').first()
     context = {
         'posts': posts,
-        'latest_post': latest_post
+        'latest_post': latest_post,
+        'liked_posts': liked_posts,
+        'most_popular_post': most_popular_post
     }
 
     return render(request, 'blog/home.html', context)
@@ -108,3 +115,27 @@ class CategoryPostListView(ListView):
         category_name = self.kwargs["category_name"]
         category = get_object_or_404(Category, name=category_name)
         return Post.objects.filter(category=category).order_by("-date_posted")
+
+def like_toggle(model):
+    def inner_func(func):
+        def wrapper(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return redirect('users/login.html')  # Redirect to the login page if the user is not authenticated
+
+            post = get_object_or_404(model, id=kwargs.get('pk'))
+            user_exist = post.likes.filter(username=request.user.username).exists()
+            
+            if user_exist:
+                post.likes.remove(request.user)
+            else:
+                post.likes.add(request.user)
+                    
+            return func(request, post)
+        return wrapper
+    return inner_func
+
+
+@login_required
+@like_toggle(Post)
+def like_post(request, post):   
+    return render(request, 'snippets/likes.html', {'post' : post })

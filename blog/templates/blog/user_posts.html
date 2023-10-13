@@ -80,8 +80,7 @@
                     <p class="card-text my-4">{{ post.get_cleaned_content|safe|truncatechars:100 }}
                     </p>
                     <div class="d-flex justify-content-start align-items-center">
-                      <p class="mb-0 "><i class="fas fa-cog me-2 bi bi-heart"></i> <span class="text-muted small">20
-                          likes</span></p>
+                      <p>{% include 'snippets/likes.html' %}</p>
                       <p class="mb-0 "><i class="fas fa-link ms-4 me-2 bi bi-chat"></i> <span
                           class="text-muted small">40 comments</span></p>
                       <p class="mb-0 text-end"><i class="fas fa-ellipsis-h ms-4 me-2"></i> <span

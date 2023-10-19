@@ -33,7 +33,7 @@ Here are some of the project's best features:
 *   <strong>Bootstrap Integration:</strong> Bootstrap framework is integrated into the project to enhance styling and maintain layout consistency throughout the website.
 *   <strong>Class-Based Views:</strong> Django's Class-Based Views handle different aspects of the application promoting code modularity and maintainability. 
 
-<h2>🛠️ Installation Steps:</h2>
+<!-- <h2>🛠️ Installation Steps:</h2>
 
 
 <p>1. Clone the Repository:</p>
@@ -86,7 +86,7 @@ python manage.py createsuperuser
 
 ```
 python manage.py runserver
-```
+``` --> 
 <h2>💻 Built with</h2>
 
 

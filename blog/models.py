@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-import shortuuid
+#import shortuuid
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from imagekit.models import ImageSpecField

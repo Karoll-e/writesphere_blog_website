@@ -1,4 +1,4 @@
-Django==4.2
+Django==3.2.23
 crispy-bootstrap5==0.7
 django-ckeditor==6.7.0
 django-cleanup==7.0.0

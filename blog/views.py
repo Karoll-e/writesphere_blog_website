@@ -26,6 +26,7 @@ def home(request):
     latest_post = Post.objects.last()
     liked_posts = Post.objects.annotate(num_likes=Count('likes')).order_by('-num_likes')[1:5]
     most_popular_post = Post.objects.annotate(num_likes=Count('likes')).order_by('-num_likes').first()
+
     context = {
         'posts': posts,
         'latest_post': latest_post,
@@ -120,7 +121,7 @@ def like_toggle(model):
     def inner_func(func):
         def wrapper(request, *args, **kwargs):
             if not request.user.is_authenticated:
-                return redirect('users/login.html')  # Redirect to the login page if the user is not authenticated
+                return redirect(reverse('users/login.html'))  # Redirect to the login page if the user is not authenticated
 
             post = get_object_or_404(model, id=kwargs.get('pk'))
             user_exist = post.likes.filter(username=request.user.username).exists()

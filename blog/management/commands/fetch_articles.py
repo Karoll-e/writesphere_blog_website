@@ -24,7 +24,7 @@ class Command(BaseCommand):
         """
         Fetch and process articles from the News API.
         """
-        api_key = 'd4bb8a6625c74351a151e70b549d2abb'
+        api_key = os.environ.get("API_KEY")
         base_url = "https://newsapi.org/v2/"
         endpoint = "top-headlines"
         categories = ["technology", "entertainment", "science", "sports", "health"]

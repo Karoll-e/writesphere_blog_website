@@ -1,6 +1,6 @@
 Django==3.2.23
 crispy-bootstrap5==0.7
-django-ckeditor==6.7.0
+django-ckeditor==6.3.2
 django-cleanup==7.0.0
 factory_boy==3.3.0
 Faker==19.3.0

@@ -11,8 +11,9 @@ env_vars.py
 secret_key.py 
 
 # Media and static files
-#/media/
+/media/
 /static/
+/staticfiles/
 
 # Compiled translations
 *.mo

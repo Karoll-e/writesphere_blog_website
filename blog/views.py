@@ -62,7 +62,7 @@ def post_detail_view(request, pk):
     num_posts = author_posts.count()
 
     context = {"post": post, "author_posts": author_posts, "num_posts": num_posts}
-    return render(request, "blog/post_detail.html.", context)
+    return render(request, "blog/post_detail.html", context)
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
